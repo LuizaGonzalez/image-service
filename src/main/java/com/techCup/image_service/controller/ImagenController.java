@@ -26,7 +26,7 @@ public class ImagenController {
         return imagenService.save(file, externalReference);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Byte[]> getImage(@PathVariable String id){
+    public ResponseEntity<byte[]> getImage(@PathVariable String id){
         ImagenDocument image = imagenService.findById(id);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + image.getName() + "\"")
@@ -37,6 +37,11 @@ public class ImagenController {
     @GetMapping("/reference/{externalReference}")
     public List<ImagenDocument> listByReference(@PathVariable String externalReference) {
         return imagenService.findByExternalReference(externalReference);
+    }
+    // List ALL images
+    @GetMapping
+    public List<ImagenDocument> listAll() {
+        return imagenService.findAll();
     }
     // Delete image by id
     @DeleteMapping("/{id}")
